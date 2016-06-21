@@ -56,7 +56,7 @@
 <div class="container-fluid">
 	<div class="row submit-btn-wrap">
 		<div class="col-md-10 col-md-offset-1">
-			<button type="button" class="btn btn-default">Отправить запрос</button>
+			<button type="button" id="send-request" class="btn btn-default">Отправить запрос</button>
 		</div>
 	</div>
 	<div class="row">
@@ -67,39 +67,19 @@
 				</div>
 				<div class="panel-body">
 					<pre>
-						<code class="php">
-<?=$request_str?>
-						</code>
+						<code id="request" class="php"><?=$request_str?></code>
 					</pre>
 				</div>
 			</div>
 		</div>
 		<div class="response col-md-5">
-			<div class="panel panel-primary">
+			<div id="response-panel" class="panel panel-<?=$status?>">
 				<div class="panel-heading">
 					<h3 class="panel-title">Response</h3>
 				</div>
 				<div class="panel-body">
 					<pre>
-						<code class="json">
-{
-"response":  {
-  "leads":  {
-    "add":  [
-    {
-      "id":  3655494,
-      "request_id":  0
-    },
-    {
-      "id":  3655495,
-      "request_id":  1
-    }
-  ]
-  },
-  "server_time":  1374756396
-}
-}
-						</code>
+						<code id="response" class="json"></code>
 					</pre>
 				</div>
 			</div>
@@ -111,5 +91,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+
+<script src="js/main.js"></script>
 </body>
 </html>
