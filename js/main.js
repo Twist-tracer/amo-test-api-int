@@ -3,6 +3,16 @@ $("document").ready(function() {
         $.ajax({
             type: "POST",
             url: "index.php",
+            data: "query=get_request_contents",
+            success: function(response){
+                $("#request").text(response);
+                hljs.initHighlighting.called = false;
+                hljs.initHighlighting();
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "index.php",
             beforeSend: function() {
                 $('#send-request')
                     .html("<img src='images/ajax-loader.gif' alt='Отправка...' title='Отправка...' />")

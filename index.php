@@ -16,6 +16,11 @@ $type = FALSE; #Тип запроса: FALSE(GET запрос, параметр�
 $request_str = file_get_contents('query.php', NULL, NULL, 20);
 $status = "default";
 
+if(isset($_POST["query"]) && $_POST["query"] == "get_request_contents") {
+    echo file_get_contents('query.php', NULL, NULL, 20);
+    exit;
+}
+
 if(isset($_POST["query"]) && $_POST["query"] == "send_request") {
     if(!auth($user, $subdomain)) {
         echo json_encode(["status" => "danger", "response_str" => "Авторизация не удалась!"]);
