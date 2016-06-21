@@ -7,7 +7,7 @@ $("document").ready(function() {
             success: function(response){
                 response = JSON.parse(response);
                 $("#response-panel").attr("class", "panel panel-"+response.status);
-                $("#response").text(response.response_str);
+                $("#response").text(JSON.stringify(JSON.parse(response.response_str), undefined, 2));
                 hljs.initHighlighting.called = false;
                 hljs.initHighlighting();
             }
