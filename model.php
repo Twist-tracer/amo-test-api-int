@@ -29,8 +29,9 @@ function send_request($link, $post_data = [], $type = FALSE) {
         curl_setopt($curl, CURLOPT_POST, TRUE);
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post_data));
     } elseif($type == 'CURLOPT_CUSTOMREQUEST') {
+        if(is_array($post_data)) $post_data = json_encode($post_data);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($post_data));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
         curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     }
     curl_setopt($curl, CURLOPT_HEADER, FALSE);
