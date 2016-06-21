@@ -17,7 +17,7 @@ $request_str = file_get_contents('query.php', NULL, NULL, 20);
 $status = "default";
 
 if(isset($_POST["query"]) && $_POST["query"] == "get_request_contents") {
-    echo file_get_contents('query.php', NULL, NULL, 20);
+    echo $request_str;
     exit;
 }
 
