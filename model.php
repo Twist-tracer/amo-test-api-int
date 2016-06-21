@@ -19,9 +19,9 @@ function auth($user, $subdomain) {
 }
 
 function send_request($link, $post_data = [], $type = FALSE) {
-    $curl = curl_init(); #Ñîõðàíÿåì äåñêðèïòîð ñåàíñà cURL
+    $curl = curl_init(); #Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ Ð´ÐµÑÐºÑ€Ð¸Ð¿Ñ‚Ð¾Ñ€ ÑÐµÐ°Ð½ÑÐ° cURL
 
-    #Óñòàíàâëèâàåì íåîáõîäèìûå îïöèè äëÿ ñåàíñà cURL
+    #Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ñ‹Ðµ Ð¾Ð¿Ñ†Ð¸Ð¸ Ð´Ð»Ñ ÑÐµÐ°Ð½ÑÐ° cURL
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($curl, CURLOPT_USERAGENT, 'amoCRM-API-client/1.0');
     curl_setopt($curl, CURLOPT_URL, $link);
@@ -39,11 +39,11 @@ function send_request($link, $post_data = [], $type = FALSE) {
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
 
-    sleep(1); #Æäåì ñåêóíäó
+    sleep(1); #Ð–Ð´ÐµÐ¼ ÑÐµÐºÑƒÐ½Ð´Ñƒ
 
-    $out = curl_exec($curl); #Èíèöèèðóåì çàïðîñ ê API è ñîõðàíÿåì îòâåò â ïåðåìåííóþ
-    $code = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE); #Ïîëó÷èì HTTP-êîä îòâåòà ñåðâåðà
-    curl_close($curl); #Çàâåðàøåì ñåàíñ cURL
+    $out = curl_exec($curl); #Ð˜Ð½Ð¸Ñ†Ð¸Ð¸Ñ€ÑƒÐµÐ¼ Ð·Ð°Ð¿Ñ€Ð¾Ñ Ðº API Ð¸ ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ Ð¾Ñ‚Ð²ÐµÑ‚ Ð² Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½ÑƒÑŽ
+    $code = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE); #ÐŸÐ¾Ð»ÑƒÑ‡Ð¸Ð¼ HTTP-ÐºÐ¾Ð´ Ð¾Ñ‚Ð²ÐµÑ‚Ð° ÑÐµÑ€Ð²ÐµÑ€Ð°
+    curl_close($curl); #Ð—Ð°Ð²ÐµÑ€Ð°ÑˆÐµÐ¼ ÑÐµÐ°Ð½Ñ cURL
 
     return ["response_str" => $out, "code" => $code];
 }
