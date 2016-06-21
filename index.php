@@ -10,8 +10,8 @@ $user = [
 $subdomain = 'new57612121a3a6b';
 
 // Настройки запроса
-$link = "https://".$subdomain.".amocrm.ru/private/api/v2/json/leads/list?limit_rows=5";
-$type = FALSE; #Тип запроса CURLOPT_POST(Стандартный пост запрос), CURLOPT_CUSTOMREQUEST(Пост с телом запроса, например JSON)
+$link = "https://".$subdomain.".amocrm.ru/private/api/v2/json/leads/list?limit_rows=5"; #ссылка на метод API
+$type = FALSE; #Тип запроса: FALSE(GET запрос, параметры нужно указать в url), CURLOPT_POST(Стандартный пост запрос), CURLOPT_CUSTOMREQUEST(Пост с телом запроса, например JSON)
 
 $request_str = file_get_contents('query.php', NULL, NULL, 20);
 $status = "default";
