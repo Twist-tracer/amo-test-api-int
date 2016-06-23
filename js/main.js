@@ -36,6 +36,7 @@ $("document").ready(function() {
                     $("#response-panel").attr("class", "panel panel-warning");
                     $("#response").text(response.response_str);
                 } else if(checkJSON(response.response_str)) {
+                    $("#response-panel").attr("class", "panel panel-"+response.status);
                     $("#response").text(JSON.stringify(JSON.parse(response.response_str), undefined, 2));
                 } else { // Если пришел не JSON
                     $("#response-panel").attr("class", "panel panel-danger");
