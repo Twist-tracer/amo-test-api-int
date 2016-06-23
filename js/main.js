@@ -31,14 +31,16 @@ $("document").ready(function() {
             data: "query=send_request",
             success: function(response){
                 response = JSON.parse(response);
-                $("#response-panel").attr("class", "panel panel-"+response.status);
 
-                if(response.response_str == "") {
+                if(response.response_str == "") { // Если пустота
+                    $("#response-panel").attr("class", "panel panel-warning");
                     $("#response").text(response.response_str);
                 } else if(checkJSON(response.response_str)) {
                     $("#response").text(JSON.stringify(JSON.parse(response.response_str), undefined, 2));
-                } else $("#response").text("Неверный формат данных");
-
+                } else { // Если пришел не JSON
+                    $("#response-panel").attr("class", "panel panel-danger");
+                    $("#response").text("Неверный формат данных");
+                }
 
                 hljs.initHighlighting.called = false;
                 hljs.initHighlighting();
