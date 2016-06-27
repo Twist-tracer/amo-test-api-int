@@ -9,11 +9,30 @@ $user = [
 ];
 $subdomain = 'new57612121a3a6b';
 
-// Настройки запроса
-$link = "https://".$subdomain.".amocrm.ru/private/api/v2/json/leads/list?limit_rows=5"; #ссылка на метод API
-$type = FALSE; #Тип запроса: FALSE(GET запрос, параметры нужно указать в url), CURLOPT_POST(Стандартный пост запрос), CURLOPT_CUSTOMREQUEST(Пост с телом запроса, например JSON)
+/* Методы API */
+#/private/api/v2/json/accounts/current - информация об аккаунте
 
-$request_str = file_get_contents('query.php', NULL, NULL, 20);
+#/api/unsorted/list/?api_key=".$user["USER_HASH"]."&login=".$user["USER_LOGIN"]." - список неразобранного
+#/private/api/v2/json/leads/list - список сделок
+#/private/api/v2/json/contacts/list - список контактов
+#/private/api/v2/json/company/list - список компаний
+#/private/api/v2/json/webhooks/list - список WebHooks
+
+#/api/unsorted/add/?api_key=".$user["USER_HASH"]."&login=".$user["USER_LOGIN"]." - добавить в неразобранное
+#/private/api/v2/json/leads/set - добавить/обновить сделку
+#/private/api/v2/json/contacts/set - добавить/обновить сделку
+#/private/api/v2/json/company/set - добавить/обновить сделку
+#/private/api/v2/json/webhooks/subscribe - добавить WebHook
+
+#/private/api/v2/json/webhooks/unsubscribe - удалить WebHook
+
+#/private/api/v2/json/contacts/links - Связи между сделками и контактами
+
+// Настройки запроса
+$link = "https://".$subdomain.".amocrm.ru/api/unsorted/add/?api_key=".$user["USER_HASH"]."&login=".$user["USER_LOGIN"].""; #ссылка на метод API
+$type = "CURLOPT_CUSTOMREQUEST"; #Тип запроса: FALSE(GET запрос, параметры нужно указать в url), CURLOPT_POST(Стандартный пост запрос), CURLOPT_CUSTOMREQUEST(Пост с телом запроса, например JSON)
+
+$request_str = ($type == 'CURLOPT_CUSTOMREQUEST')? file_get_contents('query.php', NULL, NULL, 20): $link;
 $status = "default";
 
 if(isset($_POST["query"]) && $_POST["query"] == "get_request_contents") {
@@ -27,7 +46,7 @@ if(isset($_POST["query"]) && $_POST["query"] == "send_request") {
         exit;
     } else {
         $response = send_request($link, $data, $type);
-        $status = ((int)$response["code"] != 200 && (int)$response["code"] != 204)? "danger" : "success";
+        $status = ((int)$response["code"] != 200 && (int)$response["code"] != 201 && (int)$response["code"] != 204)? "danger" : "success";
         echo json_encode(["status" => $status, "response_str" => $response["response_str"]]);
         exit;
     }
