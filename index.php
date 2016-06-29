@@ -52,9 +52,13 @@ if(isset($_POST["query"]) && $_POST["query"] == "send_request") {
     }
 }
 
-$page = Template("template.php", array(
-    "request_str" => $request_str,
-    "status" => $status
-));
+if(isset($_GET["page"]) && $_GET["page"] == "test_ajax") {
+    $page = Template("test_ajax_page.php");
+} else {
+    $page = Template("template.php", array(
+        "request_str" => $request_str,
+        "status" => $status
+    ));
+}
 
 echo $page;
