@@ -43,10 +43,12 @@
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				  <ul class="nav navbar-nav">
-					  <li class="active"><a href="http://test.loc">amoCRM API interface <span class="sr-only">(current)</span></a></li>
-					  <li><a href="http://test.loc?page=test_ajax">Host for test ajax requests</a></li>
-				  </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="http://test.loc">amoCRM API interface <span class="sr-only">(current)</span></a></li>
+                        <li><a href="http://test.loc?page=test_ajax">Host for test ajax requests</a></li>
+                        <li><a href="http://test.loc/count_double_rows.php">Подсчет одинаковых строк</a></li>
+                        <li><a href="http://test.loc/Логирование.txt">Шаблоны для логирования</a></li>
+                    </ul>
 				</div><!-- /.navbar-collapse -->
 			  </div><!-- /.container-fluid -->
 			</nav>

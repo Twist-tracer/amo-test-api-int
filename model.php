@@ -18,7 +18,7 @@ function auth($user, $subdomain) {
     return isset($response["response"]["auth"]);
 }
 
-function send_request($link, $post_data = [], $type = FALSE) {
+function send_request($link, $post_data = [], $type = FALSE, $log = FALSE) {
     $curl = curl_init(); #Сохраняем дескриптор сеанса cURL
 
     #Устанавливаем необходимые опции для сеанса cURL
@@ -45,6 +45,20 @@ function send_request($link, $post_data = [], $type = FALSE) {
     $out = curl_exec($curl); #Инициируем запрос к API и сохраняем ответ в переменную
     $code = (int)curl_getinfo($curl, CURLINFO_HTTP_CODE); #Получим HTTP-код ответа сервера
     curl_close($curl); #Заверашем сеанс cURL
+
+    if($log === TRUE) {
+        $request_str = "Время: ". date("d-m-Y h:i:s", time()) ."; Time(".time().")".PHP_EOL;
+        $request_str .= "Ссылка: ".$link.PHP_EOL;
+        $request_str .= "IP: ".$_SERVER["REMOTE_ADDR"].PHP_EOL;
+        $request_str .= "Request: ".PHP_EOL.json_encode($post_data).PHP_EOL.PHP_EOL;
+
+        $response_str = "Время: ". date("d-m-Y h:i:s", time()) ."; Time(".time().")".PHP_EOL;
+        $response_str .= "Информация: ".$code.PHP_EOL;
+        $response_str .= "Response: ".$out.PHP_EOL.PHP_EOL;
+
+        file_put_contents("request.log", $request_str, FILE_APPEND);
+        file_put_contents("response.log", $response_str, FILE_APPEND);
+    }
 
     return ["response_str" => $out, "code" => $code];
 }

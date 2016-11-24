@@ -41,6 +41,8 @@
                         <ul class="nav navbar-nav">
                             <li><a href="http://test.loc">amoCRM API interface</a></li>
                             <li class="active"><a href="http://test.loc?page=test_ajax">Host for test ajax requests <span class="sr-only">(current)</span></a></li>
+                            <li><a href="http://test.loc/count_double_rows.php">Подсчет одинаковых строк)</span></a></li>
+                            <li><a href="http://test.loc/Логирование.txt">Шаблоны для логирования</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -54,7 +56,7 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    Ссылка для запросов: <a href="http://twist-tracer.esy.es/amocrm/test-ajax.php?access_token=start_test_ajax_now">http://twist-tracer.esy.es/amocrm/test-ajax.php?access_token=start_test_ajax_now</a>
+                    Ссылка для запросов: <a href="http://twist-tracer.ru/amocrm/test-ajax.php?access_token=start_test_ajax_now">http://twist-tracer.ru/amocrm/test-ajax.php?access_token=start_test_ajax_now</a>
                 </div>
             </div>
             <ul class="list-group">
