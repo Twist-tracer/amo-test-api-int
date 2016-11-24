@@ -9,8 +9,8 @@ function Template($file, $params = array()) {
 	return ob_get_clean();
 }
 
-function auth($user, $subdomain) {
-    $link = 'https://'.$subdomain.'.amocrm.ru/private/api/auth.php?type=json';
+function auth($user, $subdomain, $domain) {
+    $link = 'https://'.$subdomain.'.'.$domain.'/private/api/auth.php?type=json';
 
     $response = send_request($link, $user, 'CURLOPT_POST');
     $response = json_decode($response["response_str"], TRUE);

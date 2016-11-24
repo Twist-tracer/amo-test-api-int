@@ -28,6 +28,8 @@ if(HOST) {
 
     if(NEWACC) {
         $subdomain = 'bogdanovnew';
+    } else {
+        $subdomain = 'bogdanov';
     }
 }
 
@@ -51,8 +53,8 @@ if(HOST) {
 #/private/api/v2/json/contacts/links - Связи между сделками и контактами
 
 // Настройки запроса
-$link = "https://".$subdomain.".".$domain."/api/unsorted/add/?api_key=".$user["USER_HASH"]."&login=".$user["USER_LOGIN"].""; #ссылка на метод API
-$type = "CURLOPT_CUSTOMREQUEST"; #Тип запроса: FALSE(GET запрос, параметры нужно указать в url), CURLOPT_POST(Стандартный пост запрос), CURLOPT_CUSTOMREQUEST(Пост с телом запроса, например JSON)
+$link = "https://".$subdomain.".".$domain."/private/api/v2/json/accounts/current"; #ссылка на метод API
+$type = FALSE; #Тип запроса: FALSE(GET запрос, параметры нужно указать в url), CURLOPT_POST(Стандартный пост запрос), CURLOPT_CUSTOMREQUEST(Пост с телом запроса, например JSON)
 
 $log = FALSE;
 
@@ -65,7 +67,7 @@ if(isset($_POST["query"]) && $_POST["query"] == "get_request_contents") {
 }
 
 if(isset($_POST["query"]) && $_POST["query"] == "send_request") {
-    if(!auth($user, $subdomain)) {
+    if(!auth($user, $subdomain, $domain)) {
         echo json_encode(["status" => "danger", "response_str" => "Авторизация не удалась!"]);
         exit;
     } else {
