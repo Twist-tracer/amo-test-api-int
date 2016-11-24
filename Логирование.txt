@@ -1,0 +1,29 @@
+########  Размещать в функции отправляющей запросы и принимающей ответ  ########
+
+
+$request_str = "Время: ". date("d-m-Y h:i:s", time()) ."; Time(".time().")".PHP_EOL;
+$request_str .= "Ссылка: ".$link.PHP_EOL;
+$request_str .= "IP: ".$_SERVER["REMOTE_ADDR"].PHP_EOL;
+$request_str .= "Request: ".PHP_EOL.json_encode($post_data).PHP_EOL.PHP_EOL;
+
+$response_str = "Время: ". date("d-m-Y h:i:s", time()) ."; Time(".time().")".PHP_EOL;
+$response_str .= "Информация: ".$code.PHP_EOL;
+$response_str .= "Response: ".$out.PHP_EOL.PHP_EOL;
+
+file_put_contents("request.log", $request_str, FILE_APPEND);
+file_put_contents("response.log", $response_str, FILE_APPEND);
+
+
+// Для импорта
+// Встроенный
+ $container['logger']->info('Debug info', ['count' => var_dump($leads_collection)]);
+
+// Кастомный
+ob_start();
+echo print_r($leads_collection);
+$log = ob_get_clean();
+file_put_contents(
+    "/var/www/users/sbogdanov/debug.log",
+    $log.PHP_EOL.PHP_EOL,
+    FILE_APPEND
+);
