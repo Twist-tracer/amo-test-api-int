@@ -40,7 +40,7 @@ $("document").ready(function() {
                     $("#response").text(JSON.stringify(JSON.parse(response.response_str), undefined, 2));
                 } else { // Если пришел не JSON
                     $("#response-panel").attr("class", "panel panel-danger");
-                    $("#response").text("Неверный формат данных");
+                    $("#response").text(response.response_str);
                 }
 
                 hljs.initHighlighting.called = false;
