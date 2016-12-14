@@ -14,7 +14,7 @@ function parse_csv($file) {
             $cells = '';
             $cells .= '<td>'.$num_2.'</td>';
             for ($c = 0; $c < $num; $c++) {
-                $cells .= '<td>'.$data[$c] . '</td>';
+                $cells .= '<td>'.htmlspecialchars($data[$c]).'</td>';
             }
             $all_data[] = $data;
             $rows .= '<tr '.$fill.'>'.$cells.'</tr>';
