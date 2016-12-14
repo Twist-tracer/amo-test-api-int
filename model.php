@@ -18,7 +18,7 @@ function auth($user, $subdomain, $domain) {
     return isset($response["response"]["auth"]);
 }
 
-function send_request($link, $post_data = [], $type = FALSE, $log = FALSE) {
+function send_request($link, $post_data = [], $type = FALSE, $log = FALSE, $headers = []) {
     $curl = curl_init(); #Сохраняем дескриптор сеанса cURL
 
     #Устанавливаем необходимые опции для сеанса cURL
@@ -29,11 +29,18 @@ function send_request($link, $post_data = [], $type = FALSE, $log = FALSE) {
         curl_setopt($curl, CURLOPT_POST, TRUE);
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post_data));
     } elseif($type == 'CURLOPT_CUSTOMREQUEST') {
-        if(is_array($post_data)) $post_data = json_encode($post_data);
+        if(is_array($post_data)) {
+	        $post_data = json_encode($post_data);
+        }
+	    if(!in_array('Content-Type: application/json', $headers)) {
+		    $headers[] = 'Content-Type: application/json';
+	    };
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     }
+	if(!empty($headers)) {
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+	}
     curl_setopt($curl, CURLOPT_HEADER, FALSE);
     curl_setopt($curl, CURLOPT_COOKIEFILE, dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
     curl_setopt($curl, CURLOPT_COOKIEJAR, dirname(__FILE__).'/cookie.txt'); #PHP>5.3.6 dirname(__FILE__) -> __DIR__
@@ -61,4 +68,18 @@ function send_request($link, $post_data = [], $type = FALSE, $log = FALSE) {
     }
 
     return ["response_str" => $out, "code" => $code];
+}
+
+function get_entity_ids($entity, $link, $post_data = [], $type = FALSE, $log = FALSE, $headers = []) {
+
+	$response = send_request($link, $post_data = [], $type = FALSE, $log = FALSE, $headers = []);
+	$entities = json_decode($response['response_str'], TRUE)['response'][$entity];
+
+	$entities_ids_str = '[';
+	foreach($entities as $entity) {
+		$entities_ids_str .= $entity['id'] . ',';
+	}
+	$entities_ids_str .= ']';
+
+	return ["response_str" => $entities_ids_str, "code" => $response['code']];
 }
